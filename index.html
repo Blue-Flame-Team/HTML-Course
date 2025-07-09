@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دورة HTML - الحلقة الأولى</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+    <style>
+      body {
+        font-family: 'Cairo', sans-serif;
+        direction: rtl;
+        scroll-behavior: smooth;
+      }
+      .slide-container {
+        width: 100vw;
+        min-height: 100vh;
+        background: #333333;
+        color: #FFFFFF;
+        padding: 2rem;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      .slide-container:nth-child(even) {
+        background: #2a2a2a;
+      }
+      .title {
+        font-size: 36px;
+        font-weight: 700;
+        color: #F16529;
+      }
+      .subtitle {
+        font-size: 24px;
+        font-weight: 600;
+        color: #2965F1;
+      }
+      .content {
+        font-size: 20px;
+        font-weight: 400;
+      }
+      .highlight {
+        color: #F16529;
+        font-weight: 600;
+      }
+      .html-tag {
+        color: #E44D26;
+        font-family: monospace;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+      .slide-number {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: 600;
+      }
+      .logo {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        font-weight: 600;
+        color: #F16529;
+      }
+      .animated-html-logo {
+        animation: float 3s ease-in-out infinite;
+      }
+      @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+        100% { transform: translateY(0px); }
+      }
+      .gradient-text {
+        background: linear-gradient(90deg, #F16529, #E44D26);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .intro-card {
+        backdrop-filter: blur(10px);
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        border-right: 4px solid #F16529;
+        transition: all 0.3s ease;
+      }
+      .intro-card:hover {
+        background-color: rgba(255, 255, 255, 0.08);
+        transform: translateX(-5px);
+      }
+      .bg-pattern {
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f16529' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      }
+      .code-block {
+        background-color: #1E1E1E;
+        border-radius: 8px;
+        padding: 1rem;
+        font-family: monospace;
+        direction: ltr;
+        text-align: left;
+        line-height: 1.5;
+      }
+      .code-comment {
+        color: #6A9955;
+      }
+      .code-tag {
+        color: #E44D26;
+      }
+      .code-attr {
+        color: #9CDCFE;
+      }
+      .code-string {
+        color: #CE9178;
+      }
+      .code-line {
+        display: block;
+        margin-bottom: 0.25rem;
+      }
+      .browser-window {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        background-color: #FFFFFF;
+      }
+      .browser-header {
+        background-color: #f0f0f0;
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+      }
+      .browser-dots {
+        display: flex;
+        margin-left: 8px;
+      }
+      .browser-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-left: 6px;
+      }
+      .browser-dot-red {
+        background-color: #ff5f57;
+      }
+      .browser-dot-yellow {
+        background-color: #ffbd2e;
+      }
+      .browser-dot-green {
+        background-color: #28ca41;
+      }
+      .browser-address {
+        background-color: #e0e0e0;
+        border-radius: 4px;
+        padding: 4px 12px;
+        color: #333;
+        font-size: 14px;
+        flex-grow: 1;
+        text-align: left;
+        direction: ltr;
+      }
+      .browser-content {
+        padding: 20px;
+        color: #333333;
+      }
+      .step-box {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-right: 4px solid #F16529;
+      }
+      .question-card {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+        margin-bottom: 1.5rem;
+      }
+      .question-card:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+      .question {
+        color: #2965F1;
+        font-weight: 600;
+        font-size: 22px;
+        margin-bottom: 0.5rem;
+      }
+      .answer {
+        font-size: 20px;
+      }
+      .step-card {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+      }
+      .step-card:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+        transform: translateY(-2px);
+      }
+      .summary-item {
+        background-color: rgba(255, 255, 255, 0.05);
+        border-right: 4px solid #F16529;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 0 8px 8px 0;
+        transition: all 0.3s ease;
+      }
+      .summary-item:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: translateX(-5px);
+      }
+      .next-badge {
+        background-color: #2965F1;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+        display: inline-block;
+      }
+      .tech-card {
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .tech-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+      .tech-card:hover::before {
+        opacity: 1;
+      }
+      .tech-card:hover {
+        transform: translateY(-10px);
+      }
+      .html-color {
+        color: #E44D26;
+      }
+      .css-color {
+        color: #2965F1;
+      }
+      .js-color {
+        color: #F7DF1E;
+      }
+      .code-window {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+      .code-window:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      }
+      .table-row {
+        display: flex;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .table-cell {
+        padding: 0.75rem;
+      }
+      .table-header {
+        font-weight: 600;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- السلايد الأول: مقدمة عن HTML -->
+    <div class="slide-container bg-pattern">
+      <div class="content-container w-full max-w-6xl flex flex-col items-center">
+        <h1 class="title mb-8 text-center">مقدمة عن <span class="gradient-text">HTML</span></h1>
+        
+        <div class="flex w-full justify-between items-center">
+          <div class="content w-1/2 pr-8">
+            <div class="intro-card p-6 mb-6">
+              <p class="mb-6">
+                <span class="highlight text-xl">"كل موقع بتفتحه على النت..."</span>
+              </p>
+              <p class="mb-6">
+                من أول فيسبوك، لجوجل، لصفحة بسيطة بتاع صاحبك، وراه حاجة واحدة بتبدأ بيها أي حاجة على الويب:
+                <span class="html-tag text-2xl">HTML</span>
+              </p>
+              <p class="mb-6">
+                لغة سهلة، واضحة، ومش لازم تكون عبقري عشان تتعلمها.
+              </p>
+              <p class="mb-6">
+                <span class="highlight">أنا أحمد أشرف إبراهيم</span>، وفي الحلقة دي، هقولك:
+              </p>
+            </div>
+            
+            <div class="bg-gray-800 p-6 rounded-lg">
+              <p class="subtitle mb-4">في الحلقة دي، هنتعلم:</p>
+              <ul class="list-none">
+                <li class="mb-3 flex items-center">
+                  <i class="fas fa-check-circle text-green-500 ml-3 text-xl"></i>
+                  <span class="text-xl">يعني إيه <span class="html-tag">HTML</span>؟</span>
+                </li>
+                <li class="mb-3 flex items-center">
+                  <i class="fas fa-check-circle text-green-500 ml-3 text-xl"></i>
+                  <span class="text-xl">بتعمل إيه بالظبط؟</span>
+                </li>
+                <li class="mb-3 flex items-center">
+                  <i class="fas fa-check-circle text-green-500 ml-3 text-xl"></i>
+                  <span class="text-xl">وهتكتب أول كود ليك بإيدك!</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="image-container w-1/2 flex justify-center items-center">
+            <div class="relative">
+              <div class="w-96 h-80 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center">
+                <div class="animated-html-logo bg-white p-4 rounded-lg shadow-lg">
+                  <svg width="150" height="150" viewBox="0 0 452 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M41 460L0 0H451L410 460L225 512" fill="#E44D26"/>
+                    <path d="M226 472L375 430L410 37H226" fill="#F16529"/>
+                    <path d="M226 208H151L146 150H226V94H84L85 109L99 265H226V208Z" fill="#EBEBEB"/>
+                    <path d="M226 355L225 355L162 338L158 294H101L109 381L225 414L226 414V355Z" fill="#EBEBEB"/>
+                    <path d="M225 208V265H295L289 338L225 355V414L342 381L343 368L356 224L357 208H225Z" fill="white"/>
+                    <path d="M225 94V150H362L363 135L366 109L367 94H225Z" fill="white"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-8 text-center">
+          <p class="content text-xl">
+            يلا بينا نبدأ رحلة تعلم <span class="html-tag">HTML</span> من الصفر للاحتراف!
+          </p>
+        </div>
+      </div>
+      
+      <div class="logo">
+        <i class="fas fa-code"></i>
+        أحمد أشرف إبراهيم
+      </div>
+      
+      <div class="slide-number">
+        1 / 8
+      </div>
+    </div>
+
+    <!-- السلايد الثاني: يعني إيه HTML؟ -->
+    <div class="slide-container">
+      <div class="content-container w-full max-w-6xl flex flex-col items-center">
+        <h1 class="title mb-8 text-center">يعني إيه HTML؟</h1>
+        
+        <div class="flex w-full justify-between items-center">
+          <div class="content w-1/2 pr-8">
+            <p class="mb-6">
+              <span class="subtitle">تخيّل معايا إنك بتبني بيت.</span>
+            </p>
+            <p class="mb-6">
+              أول حاجة بتبدأ بيها هي الأساس: طوب، حيطان، شبابيك، أبواب.
+              لسه مفيش ألوان، مفيش ديكور، بس الهيكل واقف... صح؟
+            </p>
+            <p class="mb-6">
+              الـ <span class="html-tag">HTML</span> هي الأساس ده في المواقع.
+              هي اللي بتحددلك:
+            </p>
+            <ul class="list-none mb-6">
+              <li class="mb-2 flex items-center">
+                <i class="fas fa-angle-left text-green-500 ml-2"></i>
+                <span class="html-tag">&lt;h1&gt;</span> ده عنوان
+              </li>
+              <li class="mb-2 flex items-center">
+                <i class="fas fa-angle-left text-green-500 ml-2"></i>
+                <span class="html-tag">&lt;p&gt;</span> دي فقرة
+              </li>
+              <li class="mb-2 flex items-center">
+                <i class="fas fa-angle-left text-green-500 ml-2"></i>
+                <span class="html-tag">&lt;img&gt;</span> دي صورة
+              </li>
+              <li class="mb-2 flex items-center">
+                <i class="fas fa-angle-left text-green-500 ml-2"></i>
+                <span class="html-tag">&lt;button&gt;</span> ده زرار
+              </li>
+              <li class="mb-2 flex items-center">
+                <i class="fas fa-angle-left text-green-500 ml-2"></i>
+                <span class="html-tag">&lt;form&gt;</span> ده نموذج تسجيل
+              </li>
+            </ul>
+          </div>
+          
+          <div class="image-container w-1/2">
+            <div class="w-96 h-80 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+              <div class="text-center text-white">
+                <i class="fas fa-home text-6xl mb-4"></i>
+                <p class="text-xl">HTML = أساس البيت</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-8 bg-gray-800 p-6 rounded-lg w-full">
+          <h2 class="subtitle mb-4">طيب اسمها الطويل إيه؟</h2>
+          <div class="flex justify-center items-center">
+            <div class="flex flex-col items-center mx-4">
+              <div class="text-3xl font-bold text-white mb-2">HTML</div>
+              <div class="text-xl">=</div>
+            </div>
+            <div class="flex flex-col items-center mx-4">
+              <div class="text-xl font-bold text-green-400 mb-2">HyperText</div>
+              <div class="text-lg">نص فيه روابط</div>
+            </div>
+            <div class="flex flex-col items-center mx-4">
+              <div class="text-xl font-bold text-blue-400 mb-2">Markup</div>
+              <div class="text-lg">بنستخدم علامات للتنظيم</div>
+            </div>
+            <div class="flex flex-col items-center mx-4">
+              <div class="text-xl font-bold text-yellow-400 mb-2">Language</div>
+              <div class="text-lg">لأنها مفهومة للكمبيوتر</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="logo">
+        <i class="fas fa-code"></i>
+        أحمد أشرف إبراهيم
+      </div>
+      
+      <div class="slide-number">
+        2 / 8
+      </div>
+    </div>
+
+    <!-- السلايد الثالث: بتعمل إيه بالظبط؟ -->
+    <div class="slide-container bg-pattern">
+      <div class="content-container w-full max-w-6xl flex flex-col items-center">
+        <h1 class="title mb-8 text-center">بتعمل إيه <span class="gradient-text">بالظبط</span>؟</h1>
+        
+        <div class="flex w-full justify-between items-center mb-8">
+          <div class="content w-1/2 pr-8">
+            <div class="intro-card p-6 mb-6">
+              <h2 class="subtitle mb-4 flex items-center">
+                <i class="fas fa-sitemap ml-2 text-2xl"></i>
+                HTML مسؤولة عن شكل الصفحة من ناحية الهيكل
+              </h2>
+              <p class="mb-6">
+                لكن مش مسؤولة عن الألوان ولا الحركة.
+              </p>
+              <p class="mb-6">
+                بمعنى:
+              </p>
+            </div>
+            
+            <div class="bg-gray-800 p-4 rounded-lg">
+              <ul class="list-none mb-6">
+                <li class="mb-4 flex items-center p-2">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center ml-3">
+                    <i class="fas fa-cubes text-xl text-white"></i>
+                  </div>
+                  <div>
+                    <span class="html-tag">HTML</span> = <span class="highlight">الأساس والطوب</span>
+                  </div>
+                </li>
+                <li class="mb-4 flex items-center p-2">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 flex items-center justify-center ml-3">
+                    <i class="fas fa-paint-roller text-xl text-white"></i>
+                  </div>
+                  <div>
+                    <span class="html-tag css-color">CSS</span> = <span class="highlight">الدهان والتجميل</span>
+                  </div>
+                </li>
+                <li class="mb-4 flex items-center p-2">
+                  <div class="w-10 h-10 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 flex items-center justify-center ml-3">
+                    <i class="fas fa-bolt text-xl text-white"></i>
+                  </div>
+                  <div>
+                    <span class="html-tag js-color">JavaScript</span> = <span class="highlight">الحركة والتفاعل</span>
+                  </div>
+                </li>
+              </ul>
+              <p class="content p-3 bg-gray-900 rounded-lg">
+                يعني الزرار في HTML ثابت، CSS تخلّيه لونه أحمر، JavaScript تخليه يطير 😄
+                <br>
+                <span class="highlight text-xl">بس لازم تبدأ بـ HTML.</span>
+              </p>
+            </div>
+          </div>
+          
+          <div class="image-container w-1/2 pl-4">
+            <div style="height: 400px;">
+              <canvas id="webTechChart"></canvas>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-4 w-full">
+          <h2 class="subtitle mb-6 text-center">مثال عملي: زرار في موقع</h2>
+          <div class="flex justify-between items-stretch w-full">
+            <div class="tech-card w-1/3 mx-2 bg-opacity-10 bg-red-500 rounded-lg overflow-hidden">
+              <div class="p-4">
+                <h3 class="text-xl font-bold html-color mb-4 text-center flex items-center justify-center">
+                  <i class="fab fa-html5 ml-2 text-2xl"></i>
+                  HTML
+                </h3>
+                <div class="code-window bg-gray-900 p-4 rounded">
+                  <code class="text-white text-sm">
+                    &lt;button id="myButton"&gt;<br>
+                    &nbsp;&nbsp;اضغط هنا<br>
+                    &lt;/button&gt;
+                  </code>
+                </div>
+                <p class="mt-4 text-center">تحدد هيكل الزرار</p>
+              </div>
+              <div class="bg-gradient-to-r from-red-500 to-orange-500 h-1"></div>
+            </div>
+            
+            <div class="tech-card w-1/3 mx-2 bg-opacity-10 bg-blue-500 rounded-lg overflow-hidden">
+              <div class="p-4">
+                <h3 class="text-xl font-bold css-color mb-4 text-center flex items-center justify-center">
+                  <i class="fab fa-css3-alt ml-2 text-2xl"></i>
+                  CSS
+                </h3>
+                <div class="code-window bg-gray-900 p-4 rounded">
+                  <code class="text-white text-sm">
+                    button {<br>
+                    &nbsp;&nbsp;background: red;<br>
+                    &nbsp;&nbsp;color: white;<br>
+                    &nbsp;&nbsp;border-radius: 8px;<br>
+                    }
+                  </code>
+                </div>
+                <p class="mt-4 text-center">تجمّل شكل الزرار</p>
+              </div>
+              <div class="bg-gradient-to-r from-blue-500 to-indigo-500 h-1"></div>
+            </div>
+            
+            <div class="tech-card w-1/3 mx-2 bg-opacity-10 bg-yellow-500 rounded-lg overflow-hidden">
+              <div class="p-4">
+                <h3 class="text-xl font-bold js-color mb-4 text-center flex items-center justify-center">
+                  <i class="fab fa-js ml-2 text-2xl"></i>
+                  JavaScript
+                </h3>
+                <div class="code-window bg-gray-900 p-4 rounded">
+                  <code class="text-white text-sm">
+                    myButton.onclick = function() {<br>
+                    &nbsp;&nbsp;alert("تم الضغط!");<br>
+                    &nbsp;&nbsp;this.style.transform = "rotate(360deg)";<br>
+                    }
+                  </code>
+                </div>
+                <p class="mt-4 text-center">تضيف تفاعل للزرار</p>
+              </div>
+              <div class="bg-gradient-to-r from-yellow-400 to-yellow-600 h-1"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="logo">
+        <i class="fas fa-code"></i>
+        أحمد أشرف إبراهيم
+      </div>
+      
+      <div class="slide-number">
+        3 / 8
+      </div>
+    </div>
+
+    <!-- السلايد الرابع: أول كود HTML ليك -->
+    <div class="slide-container">
+      <div class="content-container w-full max-w-6xl flex flex-col items-center">
+        <h1 class="title mb-8 text-center">أول كود HTML ليك</h1>
+        
+        <div class="flex w-full justify-between items-start mb-8">
+          <div class="content w-1/2 pr-8">
+            <p class="mb-6">
+              <span class="subtitle">دلوقتي هنكتب أول صفحة HTML ونشغلها بنفسنا 💪</span>
+            </p>
+            <p class="mb-6">
+              افتح أي محرر كود زي VS Code، واكتب الكود اللي هتشوفه على اليمين.
+            </p>
+            <p class="mb-6">
+              الكود ده بيمثل هيكل أساسي لأي صفحة HTML، وهو اللي هيظهر للمستخدم في المتصفح.
+            </p>
+            <p class="mb-6">
+              <span class="highlight">ملاحظة مهمة:</span> لاحظ إن كل علامة (Tag) ليها بداية وليها نهاية:
+            </p>
+            <ul class="list-none mb-6">
+              <li class="mb-2">
+                <span class="html-tag">&lt;html&gt;</span> بداية الصفحة و <span class="html-tag">&lt;/html&gt;</span> نهايتها
+              </li>
+              <li class="mb-2">
+                <span class="html-tag">&lt;head&gt;</span> بداية رأس الصفحة و <span class="html-tag">&lt;/head&gt;</span> نهايته
+              </li>
+              <li class="mb-2">
+                <span class="html-tag">&lt;body&gt;</span> بداية جسم الصفحة و <span class="html-tag">&lt;/body&gt;</span> نهايته
+              </li>
+            </ul>
+          </div>
+          
+          <div class="w-1/2">
+            <div class="code-block">
+              <span class="code-line"><span class="code-tag">&lt;!DOCTYPE html&gt;</span></span>
+              <span class="code-line"><span class="code-tag">&lt;html&gt;</span></span>
+              <span class="code-line">&nbsp;&nbsp;<span class="code-tag">&lt;head&gt;</span></span>
+              <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;title&gt;</span>أول صفحة HTML<span class="code-tag">&lt;/title&gt;</span></span>
+              <span class="code-line">&nbsp;&nbsp;<span class="code-tag">&lt;/head&gt;</span></span>
+              <span class="code-line">&nbsp;&nbsp;<span class="code-tag">&lt;body&gt;</span></span>
+              <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;h1&gt;</span>أهلاً بيك!<span class="code-tag">&lt;/h1&gt;</span></span>
+              <span class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;p&gt;</span>دي أول صفحة بكتبها بإيدي بلغة HTML ❤️<span class="code-tag">&lt;/p&gt;</span></span>
+              <span class="code-line">&nbsp;&nbsp;<span class="code-tag">&lt;/body&gt;</span></span>
+              <span class="code-line"><span class="code-tag">&lt;/html&gt;</span></span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-4 w-full">
+          <h2 class="subtitle mb-4">شرح العناصر الأساسية</h2>
+          <div class="bg-gray-800 rounded-lg overflow-hidden">
+            <div class="table-row table-header">
+              <div class="table-cell w-1/4">السطر</div>
+              <div class="table-cell w-3/4">معناه</div>
+            </div>
+            <div class="table-row">
+              <div class="table-cell w-1/4 html-tag">&lt;!DOCTYPE html&gt;</div>
+              <div class="table-cell w-3/4">بنقوله "أنا هشتغل بـ HTML5"</div>
+            </div>
+            <div class="table-row">
+              <div class="table-cell w-1/4 html-tag">&lt;html&gt;</div>
+              <div class="table-cell w-3/4">بداية الصفحة</div>
+            </div>
+            <div class="table-row">
+              <div class="table-cell w-1/4 html-tag">&lt;head&gt;</div>
+              <div class="table-cell w-3/4">معلومات بتظهرش للمستخدم (زي العنوان)</div>
+            </div>
+            <div class="table-row">
+              <div class="table-cell w-1/4 html-tag">&lt;title&gt;</div>
+              <div class="table-cell w-3/4">اسم الصفحة في التبويب فوق</div>
+            </div>
+            <div class="table-row">
+              <div class="table-cell w-1/4 html-tag">&lt;body&gt;</div>
+              <div class="table-cell w-3/4">كل المحتوى اللي المستخدم بيشوفه</div>
+            </div>
+            <div class="table-row">
+              <div class="table-cell w-1/4 html-tag">&lt;h1&gt;</div>
+              <div class="table-cell w-3/4">عنوان رئيسي</div>
+            </div>
+            <div class="table-row">
+              <div class="table-cell w-1/4 html-tag">&lt;p&gt;</div>
+              <div class="table-cell w-3/4">فقرة بتكتب فيها اللي إنت عاوزه</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="logo">
+        <i class="fas fa-code"></i>
+        أحمد أشرف إبراهيم
+      </div>
+      
+      <div class="slide-number">
+        4 / 8
+      </div>
+    </div>
+
+    <!-- السلايد الخامس: نشغّل الصفحة -->
+    <div class="slide-container bg-pattern">
+      <div class="content-container w-full max-w-6xl flex flex-col items-center">
+        <h1 class="title mb-8 text-center">نشغّل الصفحة</h1>
+        
+        <div class="flex w-full justify-between items-center mb-8">
+          <div class="content w-1/2 pr-8">
+            <p class="mb-6">
+              <span class="subtitle">بعد ما تكتب الكود، لازم تشوف النتيجة!</span>
+            </p>
+            
+            <div class="step-box">
+              <h3 class="text-xl font-bold mb-2">الخطوة الأولى</h3>
+              <p>احفظ الملف باسم <span class="html-tag">index.html</span></p>
+            </div>
+            
+            <div class="step-box">
+              <h3 class="text-xl font-bold mb-2">الخطوة الثانية</h3>
+              <p>دوس كليك يمين عليه واختار <span class="highlight">Open With > Google Chrome</span></p>
+            </div>
+            
+            <div class="step-box">
+              <h3 class="text-xl font-bold mb-2">الخطوة الثالثة</h3>
+              <p>وهوب 💥 الصفحة ظهرت، وده أول موقع ليك بإيدك 😍</p>
+            </div>
+            
+            <p class="mt-6">
+              <span class="highlight">ملحوظة:</span> أي تعديل هتعمله في الكود، احفظ الملف وحدّث الصفحة في المتصفح (F5) عشان تشوف التغييرات.
+            </p>
+          </div>
+          
+          <div class="w-1/2">
+            <div class="browser-window">
+              <div class="browser-header">
+                <div class="browser-dots">
+                  <div class="browser-dot browser-dot-red"></div>
+                  <div class="browser-dot browser-dot-yellow"></div>
+                  <div class="browser-dot browser-dot-green"></div>
+                </div>
+                <div class="browser-address">file:///C:/Users/username/Desktop/index.html</div>
+              </div>
+              <div class="browser-content">
+                <h1 style="color: #333; font-size: 24px; margin-bottom: 16px;">أهلاً بيك!</h1>
+                <p style="color: #666; font-size: 16px;">دي أول صفحة بكتبها بإيدي بلغة HTML ❤️</p>
+              </div>
+            </div>
+            
+            <div class="mt-8 bg-gray-800 p-4 rounded-lg">
+              <h3 class="text-xl font-bold mb-2 text-center">ملف index.html</h3>
+              <pre class="text-white text-sm" style="direction: ltr; text-align: left;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;أول صفحة HTML&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;أهلاً بيك!&lt;/h1&gt;
+    &lt;p&gt;دي أول صفحة بكتبها بإيدي بلغة HTML ❤️&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+              </pre>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-4 w-full bg-gray-800 p-6 rounded-lg">
+          <h2 class="subtitle mb-4 text-center">ليه بنستخدم index.html؟</h2>
+          <p class="content text-center">
+            اسم <span class="html-tag">index.html</span> هو الاسم الافتراضي اللي بيدور عليه المتصفح أول ما تفتح أي موقع.
+            <br>
+            يعني لما تكتب www.google.com، المتصفح بيدور على ملف اسمه index.html في سيرفر جوجل.
+          </p>
+        </div>
+      </div>
+      
+      <div class="logo">
+        <i class="fas fa-code"></i>
+        أحمد أشرف إبراهيم
+      </div>
+      
+      <div class="slide-number">
+        5 / 8
+      </div>
+    </div>
+
+    <!-- السلايد السادس: أسئلة بتتلخبط فيها -->
+    <div class="slide-container">
+      <div class="content-container w-full max-w-6xl flex flex-col items-center">
+        <h1 class="title mb-8 text-center">أسئلة بتتلخبط فيها</h1>
+        
+        <div class="flex w-full justify-between items-start">
+          <div class="w-1/2 pr-8">
+            <div class="question-card">
+              <h3 class="question flex items-center">
+                <i class="fas fa-question-circle ml-2 text-yellow-400"></i>
+                هل HTML لغة برمجة؟
+              </h3>
+              <p class="answer">
+                <span class="highlight">لأ</span>، هي مش برمجة، دي <span class="highlight">"لغة توصيف"</span>، بتنظم بس شكل الصفحة. مش بتقدر تعمل عمليات حسابية أو شروط أو حاجات معقدة زي لغات البرمجة.
+              </p>
+            </div>
+            
+            <div class="question-card">
+              <h3 class="question flex items-center">
+                <i class="fas fa-question-circle ml-2 text-yellow-400"></i>
+                هل HTML كفاية؟
+              </h3>
+              <p class="answer">
+                <span class="highlight">لوحدها لأ</span>، بس هي أول خطوة... مينفعش تبدأ CSS أو JS من غير HTML. هي الأساس اللي بتبني عليه باقي التقنيات.
+              </p>
+            </div>
+            
+            <div class="question-card">
+              <h3 class="question flex items-center">
+                <i class="fas fa-question-circle ml-2 text-yellow-400"></i>
+                HTML صعبة؟
+              </h3>
+              <p class="answer">
+                <span class="highlight">لأ أبدًا</span>، هي من أسهل اللغات اللي ممكن تتعلمها. مجرد علامات (tags) بتحدد نوع المحتوى، وقواعدها بسيطة جدًا.
+              </p>
+            </div>
+          </div>
+          
+          <div class="w-1/2">
+            <div style="height: 400px;">
+              <canvas id="htmlComparisonChart"></canvas>
+            </div>
+            
+            <div class="mt-8 bg-gray-800 p-6 rounded-lg">
+              <h3 class="subtitle mb-4">نصائح مهمة</h3>
+              <ul class="list-none">
+                <li class="mb-3 flex items-center">
+                  <i class="fas fa-lightbulb text-yellow-400 ml-2"></i>
+                  ابدأ بـ HTML قبل أي حاجة تانية
+                </li>
+                <li class="mb-3 flex items-center">
+                  <i class="fas fa-lightbulb text-yellow-400 ml-2"></i>
+                  اكتب كود نظيف ومنسق عشان تقدر تفهمه بعدين
+                </li>
+                <li class="mb-3 flex items-center">
+                  <i class="fas fa-lightbulb text-yellow-400 ml-2"></i>
+                  استخدم محرر أكواد زي VS Code لتسهيل الكتابة
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-lightbulb text-yellow-400 ml-2"></i>
+                  تأكد إن كل tag مفتوح ليه tag مقفول
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="logo">
+        <i class="fas fa-code"></i>
+        أحمد أشرف إبراهيم
+      </div>
+      
+      <div class="slide-number">
+        6 / 8
+      </div>
+    </div>
+
+    <!-- السلايد السابع: الواجب العملي -->
+    <div class="slide-container bg-pattern">
+      <div class="content-container w-full max-w-6xl flex flex-col items-center">
+        <h1 class="title mb-8 text-center">الواجب العملي</h1>
+        
+        <div class="flex w-full justify-between items-start">
+          <div class="content w-1/2 pr-8">
+            <h2 class="subtitle mb-6">✏️ جرب دلوقتي تعمّل الآتي:</h2>
+            
+            <div class="step-card flex items-start">
+              <div class="step-number ml-4 bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">١</div>
+              <div>
+                <p class="font-bold mb-2">افتح VS Code</p>
+                <p class="text-gray-300">أو أي محرر نصوص تفضله</p>
+              </div>
+            </div>
+            
+            <div class="step-card flex items-start">
+              <div class="step-number ml-4 bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">٢</div>
+              <div>
+                <p class="font-bold mb-2">اكتب كود HTML زي اللي فوق</p>
+                <p class="text-gray-300">استخدم نفس الهيكل الأساسي</p>
+              </div>
+            </div>
+            
+            <div class="step-card flex items-start">
+              <div class="step-number ml-4 bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">٣</div>
+              <div>
+                <p class="font-bold mb-2">غيّر <span class="html-tag">&lt;h1&gt;</span> وحط اسمك</p>
+                <p class="text-gray-300">مثال: <span class="html-tag">&lt;h1&gt;</span>أهلاً، أنا محمد<span class="html-tag">&lt;/h1&gt;</span></p>
+              </div>
+            </div>
+            
+            <div class="step-card flex items-start">
+              <div class="step-number ml-4 bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">٤</div>
+              <div>
+                <p class="font-bold mb-2">غيّر <span class="html-tag">&lt;p&gt;</span> واكتب "ليه حبيت تتعلم برمجة؟"</p>
+                <p class="text-gray-300">اكتب سبب اهتمامك بتعلم البرمجة</p>
+              </div>
+            </div>
+            
+            <div class="mt-6 bg-green-800 p-4 rounded-lg">
+              <p class="flex items-center">
+                <i class="fas fa-lightbulb text-yellow-300 ml-2 text-xl"></i>
+                <span>لو عايز تتأكد إنك فهمت، ابعتلي صورة من صفحتك في الكومنتات ✌️</span>
+              </p>
+            </div>
+          </div>
+          
+          <div class="w-1/2 pl-4">
+            <div class="bg-gray-900 rounded-lg p-4 shadow-lg">
+              <div class="bg-gray-800 rounded-t-lg p-2 flex items-center">
+                <div class="w-3 h-3 rounded-full bg-red-500 ml-2"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500 ml-2"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500 ml-2"></div>
+                <div class="text-gray-400 text-sm mx-auto">index.html</div>
+              </div>
+              <div class="code-block text-white text-sm">
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;أول صفحة HTML&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    <span class="text-yellow-400">&lt;h1&gt;</span><span class="text-green-400">أهلاً بيك!</span><span class="text-yellow-400">&lt;/h1&gt;</span>
+    <span class="text-yellow-400">&lt;p&gt;</span><span class="text-green-400">دي أول صفحة بكتبها بإيدي بلغة HTML ❤️</span><span class="text-yellow-400">&lt;/p&gt;</span>
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+              </div>
+            </div>
+            
+            <div class="mt-8 bg-white rounded-lg p-4 shadow-lg">
+              <div class="bg-gray-200 rounded-t-lg p-2 flex items-center">
+                <div class="w-3 h-3 rounded-full bg-red-500 ml-2"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500 ml-2"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500 ml-2"></div>
+                <div class="text-gray-600 text-sm mx-auto">النتيجة في المتصفح</div>
+              </div>
+              <div class="p-4 text-center">
+                <h1 style="color: #333; font-size: 24px; margin-bottom: 16px;">أهلاً بيك!</h1>
+                <p style="color: #666; font-size: 16px;">دي أول صفحة بكتبها بإيدي بلغة HTML ❤️</p>
+              </div>
+            </div>
+            
+            <div class="mt-6 text-center">
+              <p class="content">
+                <i class="fas fa-info-circle text-blue-400 ml-2"></i>
+                احفظ الملف باسم <span class="highlight">index.html</span> ثم افتحه بالمتصفح
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="logo">
+        <i class="fas fa-code"></i>
+        أحمد أشرف إبراهيم
+      </div>
+      
+      <div class="slide-number">
+        7 / 8
+      </div>
+    </div>
+
+    <!-- السلايد الثامن: ملخص الحلقة -->
+    <div class="slide-container">
+      <div class="content-container w-full max-w-6xl flex flex-col items-center">
+        <h1 class="title mb-8 text-center">ملخص الحلقة</h1>
+        
+        <div class="flex w-full justify-between items-center mb-8">
+          <div class="content w-1/2 pr-8">
+            <div class="summary-item">
+              <h3 class="text-xl font-bold mb-2">
+                <i class="fas fa-check-circle text-green-500 ml-2"></i>
+                عرفنا يعني إيه HTML
+              </h3>
+              <p>لغة توصيف تستخدم لبناء هيكل صفحات الويب</p>
+            </div>
+            
+            <div class="summary-item">
+              <h3 class="text-xl font-bold mb-2">
+                <i class="fas fa-check-circle text-green-500 ml-2"></i>
+                فهمنا إنها مش برمجة، لكنها أساس الموقع
+              </h3>
+              <p>HTML هي الأساس اللي بنبني عليه CSS و JavaScript</p>
+            </div>
+            
+            <div class="summary-item">
+              <h3 class="text-xl font-bold mb-2">
+                <i class="fas fa-check-circle text-green-500 ml-2"></i>
+                كتبنا أول كود وفتحناه على المتصفح
+              </h3>
+              <p>تعلمنا الهيكل الأساسي لصفحة HTML وكيفية تشغيلها</p>
+            </div>
+            
+            <div class="summary-item">
+              <h3 class="text-xl font-bold mb-2">
+                <i class="fas fa-check-circle text-green-500 ml-2"></i>
+                واستعدنا للحلقة الجاية
+              </h3>
+              <p>هنتعلم فيها المزيد عن عناصر النصوص في HTML</p>
+            </div>
+          </div>
+          
+          <div class="w-1/2">
+            <div style="height: 400px;">
+              <canvas id="progressChart"></canvas>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-6 bg-gray-800 p-6 rounded-lg w-full text-center">
+          <h2 class="subtitle mb-4">في الحلقة القادمة</h2>
+          <div class="next-badge mb-4">
+            <i class="fas fa-arrow-left ml-2"></i>
+            عناصر النصوص في HTML
+          </div>
+          <p class="content">
+            "أنا أحمد أشرف إبراهيم، ودي كانت أول خطوة ليك في عالم تطوير المواقع.
+            <br>
+            ماتنساش اللايك والشير لو استفدت، والاشتراك علشان تكمل معانا.
+            <br>
+            شوفك على خير، سلام ✋"
+          </p>
+        </div>
+      </div>
+      
+      <div class="logo">
+        <i class="fas fa-code"></i>
+        أحمد أشرف إبراهيم
+      </div>
+      
+      <div class="slide-number">
+        8 / 8
+      </div>
+    </div>
+    
+    <script>
+      // إنشاء الرسم البياني للسلايد الثالث
+      document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('webTechChart');
+        if (ctx) {
+          const webTechChart = new Chart(ctx.getContext('2d'), {
+            type: 'bar',
+            data: {
+              labels: ['HTML', 'CSS', 'JavaScript'],
+              datasets: [{
+                label: 'أهمية البدء بـ',
+                data: [100, 70, 40],
+                backgroundColor: [
+                  '#E44D26',
+                  '#2965F1',
+                  '#F7DF1E'
+                ],
+                borderColor: [
+                  '#E44D26',
+                  '#2965F1',
+                  '#F7DF1E'
+                ],
+                borderWidth: 1,
+                borderRadius: 8,
+                barPercentage: 0.6,
+              }]
+            },
+            options: {
+              indexAxis: 'y',
+              animation: {
+                duration: 2000,
+                easing: 'easeOutQuart'
+              },
+              plugins: {
+                title: {
+                  display: true,
+                  text: 'ترتيب تعلم تقنيات الويب',
+                  color: '#FFFFFF',
+                  font: {
+                    size: 18,
+                    family: 'Cairo',
+                    weight: 'bold'
+                  },
+                  padding: {
+                    top: 10,
+                    bottom: 20
+                  }
+                },
+                legend: {
+                  display: false
+                },
+                tooltip: {
+                  backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                  titleFont: {
+                    family: 'Cairo',
+                    size: 16
+                  },
+                  bodyFont: {
+                    family: 'Cairo',
+                    size: 14
+                  },
+                  padding: 12,
+                  cornerRadius: 8,
+                  displayColors: false
+                }
+              },
+              scales: {
+                x: {
+                   beginAtZero: true,
+                   max: 100,
+                   ticks: {
+                     color: '#FFFFFF',
+                     font: {
+                       family: 'Cairo',
+                       size: 14
+                     }
+                   },
+                   grid: {
+                     color: 'rgba(255, 255, 255, 0.1)'
+                   }
+                 },
+                 y: {
+                   ticks: {
+                     color: '#FFFFFF',
+                     font: {
+                       family: 'Cairo',
+                       size: 14
+                     }
+                   },
+                   grid: {
+                     color: 'rgba(255, 255, 255, 0.1)'
+                   }
+                 }
+               },
+               responsive: true,
+               maintainAspectRatio: false
+             }
+           });
+         }
+         
+         // إنشاء الرسم البياني للسلايد السادس
+         const ctx2 = document.getElementById('htmlComparisonChart');
+         if (ctx2) {
+           const htmlComparisonChart = new Chart(ctx2.getContext('2d'), {
+             type: 'radar',
+             data: {
+               labels: ['سهولة التعلم', 'الأهمية', 'الاستخدام', 'المرونة', 'الطلب في السوق'],
+               datasets: [{
+                 label: 'HTML',
+                 data: [95, 100, 90, 70, 85],
+                 backgroundColor: 'rgba(228, 77, 38, 0.2)',
+                 borderColor: '#E44D26',
+                 borderWidth: 2,
+                 pointBackgroundColor: '#E44D26',
+                 pointBorderColor: '#fff',
+                 pointHoverBackgroundColor: '#fff',
+                 pointHoverBorderColor: '#E44D26'
+               }, {
+                 label: 'JavaScript',
+                 data: [60, 95, 85, 95, 95],
+                 backgroundColor: 'rgba(247, 223, 30, 0.2)',
+                 borderColor: '#F7DF1E',
+                 borderWidth: 2,
+                 pointBackgroundColor: '#F7DF1E',
+                 pointBorderColor: '#fff',
+                 pointHoverBackgroundColor: '#fff',
+                 pointHoverBorderColor: '#F7DF1E'
+               }, {
+                 label: 'Python',
+                 data: [75, 85, 80, 90, 90],
+                 backgroundColor: 'rgba(55, 118, 171, 0.2)',
+                 borderColor: '#3776AB',
+                 borderWidth: 2,
+                 pointBackgroundColor: '#3776AB',
+                 pointBorderColor: '#fff',
+                 pointHoverBackgroundColor: '#fff',
+                 pointHoverBorderColor: '#3776AB'
+               }]
+             },
+             options: {
+               animation: {
+                 duration: 2000,
+                 easing: 'easeOutQuart'
+               },
+               plugins: {
+                 title: {
+                   display: true,
+                   text: 'مقارنة HTML مع لغات أخرى',
+                   color: '#FFFFFF',
+                   font: {
+                     size: 18,
+                     family: 'Cairo',
+                     weight: 'bold'
+                   },
+                   padding: {
+                     top: 10,
+                     bottom: 20
+                   }
+                 },
+                 legend: {
+                   labels: {
+                     color: '#FFFFFF',
+                     font: {
+                       family: 'Cairo',
+                       size: 14
+                     }
+                   }
+                 },
+                 tooltip: {
+                   backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                   titleFont: {
+                     family: 'Cairo',
+                     size: 16
+                   },
+                   bodyFont: {
+                     family: 'Cairo',
+                     size: 14
+                   },
+                   padding: 12,
+                   cornerRadius: 8
+                 }
+               },
+               scales: {
+                 r: {
+                   beginAtZero: true,
+                   max: 100,
+                   ticks: {
+                     color: '#FFFFFF',
+                     font: {
+                       family: 'Cairo',
+                       size: 12
+                     },
+                     stepSize: 20
+                   },
+                   pointLabels: {
+                     color: '#FFFFFF',
+                     font: {
+                       family: 'Cairo',
+                       size: 14
+                     }
+                   },
+                   grid: {
+                     color: 'rgba(255, 255, 255, 0.2)'
+                   },
+                   angleLines: {
+                     color: 'rgba(255, 255, 255, 0.2)'
+                   }
+                 }
+               },
+               responsive: true,
+               maintainAspectRatio: false
+             }
+           });
+         }
+         
+         // إنشاء الرسم البياني للسلايد الثامن
+         const ctx3 = document.getElementById('progressChart');
+         if (ctx3) {
+           const progressChart = new Chart(ctx3.getContext('2d'), {
+             type: 'doughnut',
+             data: {
+               labels: ['HTML تم تعلمه', 'CSS قادم', 'JavaScript قادم', 'مشاريع عملية'],
+               datasets: [{
+                 data: [25, 25, 25, 25],
+                 backgroundColor: [
+                   '#E44D26',
+                   '#2965F1',
+                   '#F7DF1E',
+                   '#28A745'
+                 ],
+                 borderColor: [
+                   '#E44D26',
+                   '#2965F1',
+                   '#F7DF1E',
+                   '#28A745'
+                 ],
+                 borderWidth: 2,
+                 hoverOffset: 10
+               }]
+             },
+             options: {
+               animation: {
+                 duration: 2000,
+                 easing: 'easeOutQuart'
+               },
+               plugins: {
+                 title: {
+                   display: true,
+                   text: 'رحلة تعلم تطوير الويب',
+                   color: '#FFFFFF',
+                   font: {
+                     size: 18,
+                     family: 'Cairo',
+                     weight: 'bold'
+                   },
+                   padding: {
+                     top: 10,
+                     bottom: 20
+                   }
+                 },
+                 legend: {
+                   position: 'bottom',
+                   labels: {
+                     color: '#FFFFFF',
+                     font: {
+                       family: 'Cairo',
+                       size: 14
+                     },
+                     padding: 20
+                   }
+                 },
+                 tooltip: {
+                   backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                   titleFont: {
+                     family: 'Cairo',
+                     size: 16
+                   },
+                   bodyFont: {
+                     family: 'Cairo',
+                     size: 14
+                   },
+                   padding: 12,
+                   cornerRadius: 8
+                 }
+               },
+               responsive: true,
+               maintainAspectRatio: false,
+               cutout: '50%'
+             }
+           });
+         }
+       });
+     </script>
+   </body>
+ </html>
